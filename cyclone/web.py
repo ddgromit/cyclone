@@ -400,6 +400,8 @@ class RequestHandler(object):
         )
         args.update(self.ui)
         args.update(kwargs)
+        if self.application.settings.get("dont_cache_templates"):
+            del RequestHandler._templates[template_path]
         return t.generate(**args)
 
     def flush(self, include_footers=False):
